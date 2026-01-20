@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import './Features.css';
 
 const features = [
@@ -9,7 +10,8 @@ const features = [
       </svg>
     ),
     title: 'Real-Time Analysis',
-    description: 'Process brain signals in milliseconds with our advanced neural processing unit.'
+    description: 'Process brain signals in milliseconds with our advanced neural processing unit.',
+    code: 'process.neural()'
   },
   {
     icon: (
@@ -18,7 +20,8 @@ const features = [
       </svg>
     ),
     title: 'Wave Detection',
-    description: 'Accurately detect alpha, beta, theta, and delta brain waves with precision.'
+    description: 'Accurately detect alpha, beta, theta, and delta brain waves with precision.',
+    code: 'detect.waves()'
   },
   {
     icon: (
@@ -28,7 +31,8 @@ const features = [
       </svg>
     ),
     title: 'AI Insights',
-    description: 'Advanced LLMs interpret your brain patterns and provide meaningful insights.'
+    description: 'Advanced LLMs interpret your brain patterns and provide meaningful insights.',
+    code: 'ai.interpret()'
   },
   {
     icon: (
@@ -38,7 +42,8 @@ const features = [
       </svg>
     ),
     title: 'Seamless Integration',
-    description: 'Connect with your favorite apps and devices through our open API.'
+    description: 'Connect with your favorite apps and devices through our open API.',
+    code: 'api.connect()'
   },
   {
     icon: (
@@ -47,7 +52,8 @@ const features = [
       </svg>
     ),
     title: 'Personalized Learning',
-    description: 'The AI adapts to your unique brain patterns over time for better accuracy.'
+    description: 'The AI adapts to your unique brain patterns over time for better accuracy.',
+    code: 'learn.adapt()'
   },
   {
     icon: (
@@ -57,27 +63,69 @@ const features = [
       </svg>
     ),
     title: 'Privacy First',
-    description: 'Your neural data is encrypted end-to-end. We never sell your information.'
+    description: 'Your neural data is encrypted end-to-end. We never sell your information.',
+    code: 'secure.encrypt()'
   }
 ];
 
 function Features() {
+  const sectionRef = useRef(null);
+  const cardsRef = useRef([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    cardsRef.current.forEach((card) => {
+      if (card) observer.observe(card);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="features" className="section section-gray">
+    <section id="features" className="section features-section">
+      <div className="features-bg">
+        <div className="features-grid-bg"></div>
+        <div className="features-glow features-glow-1"></div>
+        <div className="features-glow features-glow-2"></div>
+      </div>
       <div className="container">
-        <h2 className="section-title">Groundbreaking Features</h2>
-        <p className="section-subtitle">
-          Experience the future of brain-computer interfaces with technology that understands you.
-        </p>
+        <div ref={sectionRef} className="features-header fade-in">
+          <span className="section-badge text-mono">&lt;features/&gt;</span>
+          <h2 className="section-title text-display">Groundbreaking Features</h2>
+          <p className="section-subtitle">
+            Experience the future of brain-computer interfaces with technology that understands you.
+          </p>
+        </div>
 
         <div className="features-grid">
           {features.map((feature, index) => (
-            <div key={index} className="feature-card">
+            <div
+              key={index}
+              ref={(el) => (cardsRef.current[index] = el)}
+              className="feature-card fade-in"
+              style={{ transitionDelay: `${index * 0.1}s` }}
+            >
+              <div className="feature-card-glow"></div>
               <div className="feature-icon">
                 {feature.icon}
               </div>
               <h3 className="feature-title">{feature.title}</h3>
               <p className="feature-description">{feature.description}</p>
+              <span className="feature-code text-mono">{feature.code}</span>
             </div>
           ))}
         </div>
