@@ -1,0 +1,73 @@
+.use-cases-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+
+.use-case-card {
+  background: var(--color-background);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.use-case-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.use-case-image {
+  height: 200px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 20px;
+  position: relative;
+}
+
+.use-case-stats {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  padding: 8px 16px;
+  border-radius: 20px;
+  color: white;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.use-case-content {
+  padding: 28px;
+}
+
+.use-case-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--color-text);
+}
+
+.use-case-description {
+  font-size: 15px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 768px) {
+  .use-cases-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .use-case-image {
+    height: 160px;
+  }
+
+  .use-case-content {
+    padding: 24px;
+  }
+
+  .use-case-title {
+    font-size: 21px;
+  }
+}
