@@ -13,10 +13,19 @@ function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const scrollToSection = (e, sectionId) => {
+    e.preventDefault();
+    setMenuOpen(false);
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <nav className={`nav ${scrolled ? 'nav-scrolled' : ''}`}>
       <div className="nav-container">
-        <a href="#" className="nav-logo">
+        <a href="#" className="nav-logo" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
           <svg className="nav-logo-icon" viewBox="0 0 64 64" fill="none">
             <defs>
               <linearGradient id="navBrainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -41,11 +50,11 @@ function Navigation() {
         </button>
 
         <ul className={`nav-links ${menuOpen ? 'nav-links-open' : ''}`}>
-          <li><a href="#features" onClick={() => setMenuOpen(false)}>Features</a></li>
-          <li><a href="#how-it-works" onClick={() => setMenuOpen(false)}>How It Works</a></li>
-          <li><a href="#use-cases" onClick={() => setMenuOpen(false)}>Use Cases</a></li>
-          <li><a href="#specs" onClick={() => setMenuOpen(false)}>Specs</a></li>
-          <li><a href="#contact" className="btn btn-primary nav-cta" onClick={() => setMenuOpen(false)}>Get Started</a></li>
+          <li><a href="#features" onClick={(e) => scrollToSection(e, 'features')}>Features</a></li>
+          <li><a href="#how-it-works" onClick={(e) => scrollToSection(e, 'how-it-works')}>How It Works</a></li>
+          <li><a href="#use-cases" onClick={(e) => scrollToSection(e, 'use-cases')}>Use Cases</a></li>
+          <li><a href="#specs" onClick={(e) => scrollToSection(e, 'specs')}>Specs</a></li>
+          <li><a href="#contact" className="btn btn-primary nav-cta" onClick={(e) => scrollToSection(e, 'contact')}>Get Started</a></li>
         </ul>
       </div>
     </nav>

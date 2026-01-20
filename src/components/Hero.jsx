@@ -1,6 +1,14 @@
 import './Hero.css';
 
 function Hero() {
+  const scrollToSection = (e, sectionId) => {
+    e.preventDefault();
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <section className="hero">
       <div className="hero-content">
@@ -9,8 +17,8 @@ function Hero() {
           Decode your thoughts. Unlock your potential.
         </p>
         <div className="hero-buttons">
-          <a href="#features" className="btn btn-primary">Learn More</a>
-          <a href="#contact" className="btn btn-secondary">Pre-Order</a>
+          <a href="#features" className="btn btn-primary" onClick={(e) => scrollToSection(e, 'features')}>Learn More</a>
+          <a href="#contact" className="btn btn-secondary" onClick={(e) => scrollToSection(e, 'contact')}>Pre-Order</a>
         </div>
       </div>
 
