@@ -1,0 +1,2 @@
+name = "vite-spa-boilerplate"
+pages_build_output_dir = "dist"
